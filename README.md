@@ -1,24 +1,40 @@
-Cash Drawer - Currently a simple JS Class object with a constructor and some methods
+cashDrawer.js
+by Michelle Frattaroli
 
-Initialize a new drawer with the number of each cash denomination as arguments in the following order:
-- $100
-- $50 
-- $20
-- $10
-- $5
-- $1
-- $0.25
-- $0.10
-- $0.05
-- $0.01
-  Each argument has a default value of 0, so an empty drawer can be opened with no arguments, or smaller denominations (e.g., coins) ignored.
+mishyjari.com
+github.com/mishyjari
 
-drawerTotal() will return a number of the total cash in the drawer
+cashDrawer.js uses a Javascript Class called 'Drawer' which uses a constructor to initalize a new drawer with quantities for each denomination. The class can be called with no arguments to create an empty drawer, or passed arguments resembling the number of each denomination of currency in the drawer, large to small.
 
-bills() will return an array of each bill value present in the drawer (in cents)
+Since all paramaters default to zero, any currencies lower than your smallest can be left out, and they will be initalized with a count of 0.
 
-makeChange() takes one or two arguments.
-  If given only one argument, it will issue change from that total.
-  If provided a second argument, it will subtract that from the first and tender the difference.
-  This method will subtract the bills from the drawer, log some useful info to the console and return an object whose keys are bill labels ('hundreds','fifties',etc) and values are the number of each bill being issued.
-  
+The initalized drawer object's keys will be strings describing each currency denomination, while the values being objects in themselves containing the monetary value of one unit of currency (as an integer in cents) and the number of this currency in the drawer. An initalized empty drawer (new Drawer() with no arguments) will look as follows:
+
+Drawer {
+  hundreds: { value: 10000, count: 0 },
+  fifties: { value: 5000, count: 0 },
+  twenties: { value: 2000, count: 0 },
+  tens: { value: 1000, count: 0 },
+  fives: { value: 500, count: 0 },
+  ones: { value: 100, count: 0 },
+  quarters: { value: 25, count: 0 },
+  dimes: { value: 10, count: 0 },
+  nickles: { value: 5, count: 0 },
+  pennies: { value: 1, count: 0 }
+}
+
+A drawer can be inialized with a starting register. Each argument passed will represent the number of each currency, high to low, in the drawer. For instance, if I had three twenties, ten ones and nothing else, I would set my drawer to:
+
+new Drawer(0,0,3,0,0,1)
+
+cashDrawer currently has three methods within its class:
+
+- drawerTotal() takes no arguments and returns the total value of all currency in the drawer
+
+- addMoney(denomination,qty) takes two arguments, updates the drawer and returns the full drawer object
+  - denomination: the dollar-value of the currency being added, using a decimal float for coins
+  - qty (optional, default = 1): the number of this currency being added.
+
+- makeChange(total,bill) takes two arguments and makes change from the drawer using the largest possible currencies until the input is zeroed. It will print some useful information to the console and return an object whose keys are the name string for that currency and whose values are the number of that currency being given out. 
+  - total will be the amount to be changed
+  - bill (optional, default=0) will be removed from total before making change

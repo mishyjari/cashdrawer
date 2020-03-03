@@ -18,17 +18,10 @@ class Drawer {
 		});
 		return total/100;
 	}
-	bills() {
-		let bills = [];
-		Object.entries(this).forEach(i => {
-			bills.push(i[1].value)
-		});
-		return bills;
-	}
 	makeChange(total,bill=0) {
 		// Catch invalid inputs
 		if ( isNaN(Number(total)) || isNaN(Number(bill)) || total < bill ) {
-			console.log('makeChange takes one or two arguments.\n If given only one argument, it will issue change from that total.\n If provided a second argument, it will subtract that from the first and tender the difference.\n\n. Please use only integers or floats and make sure the first argument is greater than or equal to the second');
+			console.log('make sure your arguments are numbers and the first is less than or equal to the second');
 			return;
 		};
 
@@ -55,6 +48,10 @@ class Drawer {
 				} catch { return 0 }
 			};
 			
+			if ( i === drawer.length-1 && total !== 0 ) {
+				return 'Insufficent supply of small denominations';
+			}
+
 			// Iterate to the largest denomination less than owed money
 			if ( total < drawer[i].value || drawer[i].count === 0 ) {
 				i++;
@@ -81,7 +78,7 @@ class Drawer {
 		console.log('Current Drawer Total: $' + this.drawerTotal());
 		return change;		
 	}
-	addMoney(denomination,qty) {
+	addMoney(denomination,qty=1) {
 		let drawer = Object.values(this);
 		console.log(drawer[0].value)
 		drawer.forEach(i => {
@@ -91,7 +88,7 @@ class Drawer {
 				return 'please enter a valid denomination'
 			};
 		});
-		console.log(drawer)
+		return this;
 	}
 }
 
