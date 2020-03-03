@@ -26,16 +26,14 @@ class Drawer {
 		return bills;
 	}
 	makeChange(total,bill=0) {
-		
 		// Catch invalid inputs
 		if ( isNaN(Number(total)) || isNaN(Number(bill)) || total < bill ) {
 			console.log('makeChange takes one or two arguments.\n If given only one argument, it will issue change from that total.\n If provided a second argument, it will subtract that from the first and tender the difference.\n\n. Please use only integers or floats and make sure the first argument is greater than or equal to the second');
 			return;
 		};
 
-		if ( bill ) {
-			total -= bill
-		};
+		total -= bill;
+
 		console.log('Change requested: $' + total);
 		console.log('Current cash drawer: $' + this.drawerTotal());
 
@@ -49,23 +47,22 @@ class Drawer {
 		let i = 0;
 		let change = {};
 
-		while ( total > 0 ) {
+		while ( total > 0 && i < drawer.length ) {
 			let label = (Object.keys(this))[i];
 			let count = () => {
 				try {
 					return (Object.values(this))[i].count;
 				} catch { return 0 }
 			};
-			let value = drawer[i].value;
-
+			
 			// Iterate to the largest denomination less than owed money
-			if ( total < value || drawer[i].count === 0 ) {
+			if ( total < drawer[i].value || drawer[i].count === 0 ) {
 				i++;
 			}
 
 			else  {
 				// Subtract this bill from total
-				total -= value;
+				total -= drawer[i].value;
 				// Remove bill from drawer
 				drawer[i].count -= 1;
 		
@@ -83,13 +80,28 @@ class Drawer {
 		console.log(this)
 		console.log('Current Drawer Total: $' + this.drawerTotal());
 		return change;		
-	};
-
+	}
+	addMoney(denomination,qty) {
+		let drawer = Object.values(this);
+		console.log(drawer[0].value)
+		drawer.forEach(i => {
+			if ( i.value == denomination*100) 
+				{ i.count += qty }
+			else {
+				return 'please enter a valid denomination'
+			};
+		});
+		console.log(drawer)
+	}
 }
 
 let myDrawer = new Drawer(5,5,20,20,20,50,100,100,100,100)
 let emptyDrawer = new Drawer()
 
+//console.log(myDrawer.makeChange(10,4.90))
+
+//console.log(emptyDrawer.addMoney(100,5))
+//console.log(emptyDrawer.addMoney(.25,100))
 //console.log(myDrawer);
 
 //console.log(myDrawer.drawerTotal());
