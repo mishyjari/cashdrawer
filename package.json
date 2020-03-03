@@ -1,0 +1,19 @@
+{
+  "name": "cashdrawer",
+  "version": "1.0.0",
+  "description": "Stores Values for Currency and makes calculations with that data",
+  "main": "cashDrawer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mishyjari/cashdrawer.git"
+  },
+  "author": "Michelle Frattaroli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mishyjari/cashdrawer/issues"
+  },
+  "homepage": "https://github.com/mishyjari/cashdrawer#readme"
+}
